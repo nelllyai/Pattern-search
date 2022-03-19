@@ -9,19 +9,38 @@ function f(p) { // функция Розенброка
     return 100 * Math.pow( ( Math.pow(p.x, 2) - p.y ), 2) + Math.pow( (1 - p.x), 2 );
 }
 
-let area = document.querySelector("textarea");
-area.innerHTML = `Начало работы алгоритма\n\n`;
+let e = 0.01,
+    d1 = 2.2,
+    d2 = 1,
+    a = 2,
+    h = 1;
 
-hooke_jeeves(f, new Point(-1.2, 1), 2.2, 1, 0.01, 2, 1);
+
+// начальная точка
+let Xfirst = new Point(-1.2, 1);
+
+let list = document.querySelector("ul");
+
+list.children[0].innerHTML += `(${Xfirst.x}, ${Xfirst.y})`;
+list.children[1].innerHTML += d1;
+list.children[2].innerHTML += d2;
+list.children[3].innerHTML += e;
+list.children[4].innerHTML += a;
+list.children[5].innerHTML += h;
+
+hooke_jeeves(f, Xfirst, d1, d2, e, a, h);
 
 function hooke_jeeves(f, X0, delta1, delta2, eps, alpha, L) {
+    let area = document.querySelector("textarea");
+    area.innerHTML = `Начало работы алгоритма\n\n`;
+
     let final = false;
     let k = 1;
 
     do {
         area.innerHTML += `${k}.`;
-        area.innerHTML += ` Q(${X0.x.toFixed(5)}, ${X0.y.toFixed(5)}) = ${f(X0).toFixed(5)}\n`;
-        area.innerHTML += `     &#948;1 = ${delta1.toFixed(5)} &#948;2 = ${delta2.toFixed(5)}\n`;
+        area.innerHTML += ` Q(${X0.x.toFixed(3)}, ${X0.y.toFixed(3)}) = ${f(X0).toFixed(3)}\n`;
+        area.innerHTML += `     &#948;1 = ${delta1.toFixed(3)} &#948;2 = ${delta2.toFixed(3)}\n`;
 
         let check = false;
 
@@ -85,6 +104,6 @@ function hooke_jeeves(f, X0, delta1, delta2, eps, alpha, L) {
     } while(!final);
 
     area.innerHTML += `\nКонец работы алгоритма\nОтвет:`;
-    area.innerHTML += `\nX* = (${X0.x.toFixed(5)}, ${X0.y.toFixed(5)})`;
-    area.innerHTML += `\nQ(X*) = ${f(X0).toFixed(5)}`;
+    area.innerHTML += `\nX* = (${X0.x.toFixed(3)}, ${X0.y.toFixed(3)})`;
+    area.innerHTML += `\nQ(X*) = ${f(X0).toFixed(3)}`;
 }
